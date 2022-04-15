@@ -1,0 +1,32 @@
+package org.comstudy21.day27.objio;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class ObjectIOEx01
+{
+
+	public static void main(String[] args) throws IOException, ClassNotFoundException
+	{
+		FileInputStream fis = new FileInputStream("C:\\Users\\user\\saram_obj.data");
+		ObjectInputStream ois = new ObjectInputStream(fis);
+
+		SaramDto dto = (SaramDto) ois.readObject();
+		System.out.println(dto);
+	}
+
+	public static void test(String[] args) throws IOException
+	{
+		// TODO Auto-generated method stub
+		SaramDto dto = new SaramDto(1, "LEE", "YURIM");
+
+		FileOutputStream fos = new FileOutputStream("C:\\Users\\user\\saram_obj.data");
+		ObjectOutputStream out = new ObjectOutputStream(fos);
+
+		out.writeObject(dto);
+	}
+
+}
