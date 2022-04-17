@@ -1,0 +1,71 @@
+package java_day_miniproject;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.GridLayout;
+import javax.swing.*;
+
+public class MyJFrame extends JFrame
+{
+
+	private JPanel contentPane;
+	private JTextField txtPreview;
+	private JButton button;
+
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args)
+	{
+		EventQueue.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				try {
+					MyJFrame frame = new MyJFrame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public MyJFrame()
+	{
+		MyFrame f = new MyFrame();
+		setTitle("carList");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1200, 800);
+		contentPane = new JPanel();
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		txtPreview = new JTextField();
+		txtPreview.setBounds(10, 10, 1200, 70);
+		txtPreview.setFont(new Font("굴림", Font.PLAIN, 60));
+		txtPreview.setText("                       PREVIEW");
+		contentPane.add(txtPreview);
+		txtPreview.setColumns(10);
+		// add button
+//		JFrame f = new JFrame("Button Example");
+		JButton b = new JButton("수정");
+		b.setBounds(50, 50, 50, 50);
+		f.add(b);
+		f.setSize(100, 100);
+		f.setLayout(null);
+		f.setVisible(true);
+//		setVisible(true);
+	}
+}
