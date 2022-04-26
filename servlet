@@ -1,0 +1,162 @@
+<%@page import="org.comstudy21.saram.model.SaramDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/inc/top.jsp" %>
+<!-- 본문 시작 -->
+<h1>사람 정보 상세 보기</h1>
+<hr>
+<%
+SaramDto saram = (SaramDto)request.getAttribute("saramDto");
+%>
+<table border="1" width="600">
+	<tr>
+		<th>NO</th>
+		<td><%=saram.getNo() %></td>
+	</tr>
+	<tr>
+		<th>NAME</th>
+		<td><%=saram.getName() %></td>
+	</tr>
+	<tr>
+		<th>PHONE</th>
+		<td><%=saram.getPhone() %></td>
+	</tr>
+	<tr>
+		<th>EMAIL</th>
+		<td><%=saram.getEmail() %></td>
+	</tr>
+</table>
+<p>
+<a href="modify.saram?no=<%=saram.getNo()%>">수정</a> | 
+<a href="delete.saram?no=<%=saram.getNo()%>">삭제</a> | 
+<a href="list.saram">목록</a></p>
+<!-- 본문 끝 -->
+<%@ include file="/inc/bottom.jsp" %>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/inc/top.jsp" %>
+<!-- 본문 시작 -->
+<h1>사람 정보 입력</h1>
+<hr />
+<form action="input.saram" method="POST">
+	<table>
+		<tr>
+			<th>NO</th>
+			<td><input type="text" name="no" value="4"/></td>
+		</tr>
+		<tr>
+			<th>NAME</th>
+			<td><input type="text" name="name" value="양만춘" /></td>
+		</tr>
+		<tr>
+			<th>PHONE</th>
+			<td><input type="text"  name="phone" value="010-9999-9999"/></td>
+		</tr>
+		<tr>
+			<th>EMAIL</th>
+			<td><input type="text"  name="email" value="test@test.com"/></td>
+		</tr>
+		<tr>
+			<th colspan="2"><input type="submit" value="전송" /></th>
+		</tr>
+	</table>
+</form>
+<!-- 본문 끝 -->
+<%@ include file="/inc/bottom.jsp" %>
+
+<%@page import="org.comstudy21.saram.model.SaramDto"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/inc/top.jsp" %>
+<!-- 본문 시작 -->
+<%
+String realPath = this.getServletContext().getRealPath("./");
+//System.out.println("Console에 출력 됨.");
+// request, out, application, session ...
+//out.println("브라우저 화면에 출력 됨.");
+//out.println(realPath);
+%>
+<h1>사람 목록</h1>
+<hr />
+<!-- (오늘 과제) request의 saramList를 받아서 table에 출력 되도록 한다. -->
+<table width="600" class="table table-hover">
+<tr>
+	<th>NO</th>
+	<th>NAME</th>
+	<th>PHONE</th>
+	<th>EMAIL</th>
+</tr>
+<%
+//
+ArrayList<SaramDto> saramList = (ArrayList<SaramDto>)request.getAttribute("saramList");
+for(int i=0; i<saramList.size(); i++) {
+	SaramDto saram = saramList.get(i);
+%>
+	<tr>
+		<td><%=saram.getNo() %></td>
+		<td><a href="detail.saram?no=<%=saram.getNo()%>"><%=saram.getName() %></a></td>
+		<td><%=saram.getPhone() %></td>
+		<td><%=saram.getEmail() %></td>
+	</tr>
+<%
+}
+%>
+</table>
+<a href="input.saram">사람 정보 입력</a>
+
+<!-- 본문 끝 -->
+<%@ include file="/inc/bottom.jsp" %>
+
+<%@page import="org.comstudy21.saram.model.SaramDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/inc/top.jsp" %>
+<!-- 본문 시작 -->
+<h1>사람 정보 수정</h1>
+<%
+SaramDto saram = (SaramDto)request.getAttribute("saramDto");
+%>
+<form action="modify.saram" method="POST">
+	<table border="1" width="600">
+		<tr>
+			<th>NO</th>
+			<td><input type="text" name="no" value="<%=saram.getNo() %>"/></td>
+		</tr>
+		<tr>
+			<th>NAME</th>
+			<td><input type="text" name="name" value="<%=saram.getName() %>"/></td>
+		</tr>
+		<tr>
+			<th>PHONE</th>
+			<td><input type="text" name="phone" value="<%=saram.getPhone() %>"/></td>
+		</tr>
+		<tr>
+			<th>EMAIL</th>
+			<td><input type="text" name="email" value="<%=saram.getEmail() %>"/></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="submit" value="수정완료" />
+				<input type="reset" value="취소"/>
+			</td>
+		</tr>
+	</table>
+</form>
+<p>
+<a href="list.saram">목록</a></p>
+<!-- 본문 끝 -->
+<%@ include file="/inc/bottom.jsp" %>
+
+
+
+
+
+
+
+
+
+
+
+
