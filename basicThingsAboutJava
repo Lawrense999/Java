@@ -1,0 +1,21 @@
+package myTry;
+
+import java.util.Scanner;
+
+public class Scanner2Demo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scanner = new Scanner(System.in);
+		try {
+			while (scanner.hasNextInt()) {
+				System.out.println(scanner.nextInt() * 1000);
+			}
+			scanner.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+	}
+}
