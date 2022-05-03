@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+
+<title>Insert title here</title>
+</head>
+<body>
+	<script>
+		// Ajax를 구현하기 위한 객체 
+		// 1. XMLHttpRequest (표준)
+		// 2. ActiveXㅁㅁㅁㅁ (MS-익스플로러 8이하에서 사용)
+		// 3. <iframe> 태그를 이용한 구현 (2006년 이전에 사용하던 방법, 지금은 거의 쓰지 않음)
+
+		// 변수 선언 키워드: var, let (새로 나온 것)
+		// 상수 선언 키워드: const (상수)
+		// 함수 선언 키워드: function, =>
+
+		var xhr = new XMLHttpRequest();
+		console.log(xhr);
+		// 결과 처리 함수 지정 - open() 에서 지정된 파일이 요청 완료 됐을 때 자동 실행
+		xhr.onload = function(data) {
+			// data : 요청 결과에 대한 데이터를 받는 파라미터
+			console.log(data);
+		}
+		// 요청할 파일이름
+		xhr.open("GET", "info.txt", true); // true가 되면 동기, false가 되면 비동기 (1. url 2. method 3. true or false)
+		// 실행 
+		xhr.send();
+		
+		function functionName () {
+			// 일반적 자바스크립트 함수 선언
+		}
+		
+		var myFn = function () {
+			// 익명 함수를 변수에 참조시킴
+		}
+		
+		let myFn2 = () => {
+			// 화살표 함수
+		}
+		myFn2();
+		
+		(function a() {
+			console.log("a 선언 시 즉시 실행")	;
+		}) ()
+			</script>
+</body>
+</html>
