@@ -1,0 +1,118 @@
+package org.comstudy21.saram.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.comstudy21.saram.dbcp.JdbcUtil;
+
+import jdk.jshell.execution.JdiExecutionControlProvider;
+
+public class ShopDao {
+	final String SQL_INSERT = "insert into MEMBER values(mem_seq.nextval, ?, ?, ?, ?)";
+	final String SQL_SELECT_ALL = "SELECT * FROM SHOP ORDER BY NO DESC";
+	final String SQL_SELECT_TITLE = "SELECT * FROM SHOP WHERE TITLE=?";
+	final String SQL_SELECT_PRICE = "SELECT * FROM SHOP WHERE PRICE=?";
+	final String SQL_SELECT_MAKER = "SELECT * FROM SHOP WHERE MAKER=?";
+	final String SQL_UPDATE = "UPDATE SHOP SET TITLE=?, PRICE=?, MAKER=?, WHERE NO=?";
+	final String SQL_DELETE = "DELETE FROM SHOP WHERE NO=?";
+	final String SQL_LOGIN = "SELECT * FROM SHOP  WHERE ID=? AND PASSWORD=?";
+	final String SQL_FIND_ID = "SELECT ID FROM SHOP WHERE ID=?";
+
+	Connection conn;
+	PreparedStatement stmt;
+	ResultSet rs;
+
+	static List<ShopDto> list = new ArrayList<ShopDto>();
+	static {
+		list.add(new ShopDto(10, "냉장고", 400, "LG", 1));
+		list.add(new ShopDto(11, "세탁기", 200, "SAMSUNG", 1));
+		list.add(new ShopDto(21, "청소기", 120, "다이슨", 1));
+		list.add(new ShopDto(32, "테레비", 300, "노브랜드", 1));
+		list.add(new ShopDto(44, "핸드폰", 120, "애플", 1));
+		list.add(new ShopDto(55, "건조기", 70, "LG", 1));
+		list.add(new ShopDto(61, "레인지", 50, "LG", 1));
+		list.add(new ShopDto(71, "에어콘", 200, "위니아", 1));
+		list.add(new ShopDto(81, "리모콘", 10, "LG", 1));
+		list.add(new ShopDto(90, "선풍기", 40, "신일", 1));
+	}
+
+	public void insert(ShopDto dto) {
+		conn = JdbcUtil.getConnection();
+		try {
+			stmt = conn.prepareStatement(SQL_INSERT);
+			stmt.setString(1, dto.getTitle());
+			stmt.setInt(2, dto.getPrice());
+			stmt.setString(3, dto.getMaker());
+			stmt.setInt(4, dto.getEa());
+			int cnt = stmt.executeUpdate(); // 조회하는 것이 아니라 insert 즉 투입 하는 개념의 메소드라 Query가 아닌
+			// Update로 변경하는 개념.
+			if (cnt > 0) {
+				conn.commit();
+			} else {
+				conn.rollback();
+			}
+		} catch (SQLException e) { // SQLException
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(conn, stmt, rs);
+		}
+	}
+
+	public List<ShopDto> selectAll() {
+
+		return list;
+	}
+
+	public void update(ShopDto dto) {
+		conn = JdbcUtil.getConnection();
+		try {
+			stmt = conn.prepareStatement(SQL_UPDATE);
+			stmt.setString(1, dto.getTitle());
+			stmt.setInt(2, dto.getPrice());
+			stmt.setString(3, dto.getMaker());
+			stmt.setInt(4, dto.getNo());
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(conn, stmt, rs);
+		}
+	}
+
+	public void delete(ShopDto dto) { 
+		// indexOf 메서드는 지정된 객체가 몇 번째 인덱스에 있는지 찾아줍니다.
+		int idx = list.indexOf(dto); // list에서 dto안의 내용이 몇번째 인지 보여주는것 그것을 int idx에 대입
+		// -1이면 찾지 못했다는 뜻.
+		if (idx != -1) { // -1이 찾이 못했다는거니까 찾았으면.
+			list.remove(idx); // 리스트에서 내용물을 제거.
+			System.out.println(list); // 제거한 결과값을 출력.
+		}
+	}
+
+	public ShopDto selectByName(ShopDto dto) {
+
+		return null;
+	}
+
+	public ShopDto selectByNo(ShopDto dto) {
+		int idx = list.indexOf(dto);
+		if (idx != -1) {
+			return list.get(idx);
+		}
+		return null;
+	}
+
+	public ShopDto selectByNo(int no) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getNo() == no) {
+				return (ShopDto) list.get(i).clone();
+			}
+		}
+		return null;
+	}
+}
